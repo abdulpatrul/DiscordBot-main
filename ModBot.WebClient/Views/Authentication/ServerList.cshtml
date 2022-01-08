@@ -1,0 +1,147 @@
+﻿
+@model IEnumerable<GuildModel>
+@{
+    var AddDiscordBot = "https://discord.com/oauth2/authorize?response_type=code&client_id=844535789882834955&scope=bot%20applications.commands&permissions=2425564350&redirect_uri=https%3A%2F%2Flocalhost%3A5001%2Fauthentication%2Finitializeguild&guild_id=";
+}
+<div id="HeaderDiv">
+    <label id="Header">Please select server</label>
+</div>
+<style>
+    * {
+        font-family: "Consolas";
+    }
+    #HeaderDiv {
+        position: absolute;
+        text-align: center;
+        top: 8%;
+        left: 33%;
+
+    }
+    #Header {
+        font-size: 65px;
+        color: white;
+        text-align: left;
+
+    }
+    #example1 {
+        position: absolute;
+        display: flex;
+        width: 1250px;
+        border-radius: 25px;
+        border: 10px;
+        padding: 40px;
+        left: 19%;
+        top: 20%;
+        background: #2F3136;
+        background-clip: border-box;
+    }
+    img {
+        float: left;
+        width: 70px;
+        height: 70px;
+    }
+    #Text {
+        color: white;
+        padding-left: 15px;
+        width: 400px;
+        height: 10px;
+        float: right;
+        font-size: 20px;
+        
+    }
+    #EditBot {
+      width: 600px;
+    }
+    #meta {
+        width: 1000px;
+        display: flex;
+        align-items: center;
+    }
+    #ButtonText {
+        position: relative;
+        left: 15%;
+        top: -11%;
+        font-size: 25px;
+        color: white;
+    }
+    #ButtonA {
+        position: relative;
+        height: 40px;
+        line-height: 30px;
+        float: right;
+        left: 52.7%;
+        color: #fff;
+        background-color: #575777;
+        font-size: 25px;
+        width: 15%;
+        letter-spacing: 0.05em;
+        border-radius: 25px;
+    }
+    #ButtonE {
+        position: relative;
+        height: 40px;
+        line-height: 30px;
+        float: right;
+        left: 50%;
+        color: #fff;
+        background-color: #44877F;
+        font-size: 25px;
+        width: 20%;
+        letter-spacing: 0.05em;
+        border-radius: 25px;
+    }
+    #order1 {
+        order: 1;
+    }
+    #order2 {
+        order: 2;
+    }
+</style>
+<div id="example1">
+    <table>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="padding-bottom: 10px;">
+                        <div id="meta">
+                            @if (item.HasBot == true)
+                            {
+                                <!-- Do something here to display your items in table format (or whatever format you want with as many columns you want -->
+                                @if (item.Icon == null)
+                                {
+                                    <img src="~/images/MissingServer.png" alt="@item.Name" />
+                                }
+                                else
+                                {
+                                    <img src=@item.Icon alt="@item.Name" />
+                                }
+                                <p id="Text">
+                                    @item.Name
+                                </p>
+                                    <a class="btn" id="ButtonE"  asp-area="" asp-controller="Authentication" asp-action="EditGuild" asp-route-guildId="@item.Id">Edit bot</a>
+                            }
+                            else
+                            {
+                                @if (item.Icon == null)
+                                {
+                                    <img src="~/images/MissingServer.png" alt="@item.Name" />
+                                }
+                                else
+                                {
+                                    <img src=@item.Icon alt="@item.Name" />
+                                }
+                                <p id="Text">
+                                    @item.Name
+                                </p>
+                                    <a href=@AddDiscordBot@item.Id class="btn" id="ButtonA">Add bot</a>
+                            }
+
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<p></p>
